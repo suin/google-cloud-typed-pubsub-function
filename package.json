@@ -1,0 +1,117 @@
+{
+  "name": "@suin/google-cloud-typed-pubsub-function",
+  "version": "0.0.0-development",
+  "description": "Strongly typed Google Cloud Function interface of the Pub/Sub handler for TypeScript",
+  "keywords": [
+    "google cloud",
+    "google cloud functions",
+    "google cloud pubsub",
+    "interface",
+    "node"
+  ],
+  "homepage": "https://github.com/suin/google-cloud-typed-pubsub-function#readme",
+  "bugs": {
+    "url": "https://github.com/suin/google-cloud-typed-pubsub-function/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suin/google-cloud-typed-pubsub-function.git"
+  },
+  "license": "MIT",
+  "author": "suin <suinyeze@gmail.com>",
+  "types": "index.d.ts",
+  "files": [
+    "**/*.d.ts",
+    "!*.{test,spec}.*",
+    "!/types/this.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc *.d.ts",
+    "clean": "git clean -Xdf -e '!/.idea/**' -e '!/node_modules' -e '!/node_modules/**'",
+    "clean:dry": "git clean -Xdfn -e '!/.idea/**' -e '!/node_modules' -e '!/node_modules/**'",
+    "format": "yarn prettier --write",
+    "format:check": "yarn prettier --check",
+    "pack:preview": "PACKAGE=$(npm pack 2> /dev/null) sh -c 'set -eu && tar tf $PACKAGE | sort && rm $PACKAGE'",
+    "prettier": "prettier '**/*.{ts,tsx,json,json5,css,scss,graphql,gql,md,mdx,html,vue,yaml}'",
+    "reference": "typedoc --includeVersion --exclude 'node_modules/**/*' --exclude '**/*+(.spec|.test).ts' --stripInternal --gitRevision \"`git describe --tags --abbrev=0 || echo master`\" --out reference .",
+    "reset": "git clean -Xdf -e '!/.idea/**'",
+    "reset:dry": "git clean -Xdfn -e '!/.idea/**'",
+    "semantic-release": "semantic-release",
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,json,json5,css,scss,graphql,gql,md,mdx,html,vue,yaml}": "prettier --write",
+    "./package.json": "sort-package-json"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@types/jest": "^26.0.7",
+    "@types/node": "*",
+    "husky": ">=4",
+    "jest": "^26.1.0",
+    "lint-staged": ">=10",
+    "prettier": "^2.0",
+    "semantic-release": "^17.1.1",
+    "sort-package-json": "^1.44.0",
+    "ts-jest": "^26.1.3",
+    "typedoc": "^0.17.8",
+    "typescript": "^3.9"
+  },
+  "peerDependencies": {
+    "@types/node": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": true
+        }
+      ],
+      "@semantic-release/github",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "CHANGELOG.md"
+          ]
+        }
+      ],
+      [
+        "@semantic-release/exec",
+        {
+          "successCmd": "yarn reference"
+        }
+      ]
+    ]
+  }
+}
