@@ -1,6 +1,6 @@
 {
   "name": "@suin/google-cloud-typed-pubsub-function",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "Strongly typed Google Cloud Function interface of the Pub/Sub handler for TypeScript",
   "keywords": [
     "google cloud",
